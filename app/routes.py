@@ -1,4 +1,5 @@
-from flask import Blueprint, request, jsonify
+from flask_smorest import Blueprint
+from flask import request, jsonify
 from app.services import users, questions, choices, images, answers
 
 # Blueprint 생성 - 라우트 모음

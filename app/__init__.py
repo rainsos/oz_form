@@ -1,9 +1,11 @@
+from flask_smorest import Api
+from app.routes import routes
+from config import db
 from flask import Flask, jsonify
 from flask_migrate import Migrate
 
 import app.models
-from app.routes import routes
-from config import db
+
 
 migrate = Migrate()
 
@@ -25,8 +27,9 @@ def create_app():
         response.status_code = 400
         return response
 
-		# 블루프린트 등록
-    application.register_blueprint(routes)
+		# 블루프린트 등록 및 Swagger-UI 연동
+    api = Api(application)   # 🔹 Api 객체 생성
+    api.register_blueprint(routes)  # 🔹 기존 Blueprint 등록
 
 
     return application
