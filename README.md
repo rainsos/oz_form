@@ -105,5 +105,7 @@ oz_form/                        # 프로젝트 폴더
 
 기술 지원 및 프로젝트 관련 문의는 아래 이메일로 연락 바랍니다.
 
-📩 **Email**: [rainsos@nate.com](mailto:rainsos@nate.com)
+📩 **Email**: [rainsos@nate.com](mailto:rainsos@nate.com) 이소영
+📩 **Email**: [jseejy57@gmail.com](mailto:jseejy57@gmail.com) 이정호
+📩 **Email**: [rainsos@nate.com](mailto:rainsos@nate.com) 이상인
 
