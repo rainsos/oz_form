@@ -33,6 +33,10 @@ fi
 echo "==== Starting Migration ===="
 echo
 
+# 🔥 이 두 줄 추가!
+export FLASK_APP=run:create_app
+export FLASK_ENV=development
+
 # Flask 마이그레이션 작업
 flask db init
 flask db migrate
