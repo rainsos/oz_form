@@ -2,9 +2,12 @@ alembic==1.15.2
 apispec==6.8.1
 black==25.1.0
 blinker==1.9.0
+cffi==1.17.1
 click==8.1.8
 colorama==0.4.6
+cryptography==44.0.2
 Flask==3.1.0
+flask-cors==5.0.1
 Flask-Migrate==4.0.7
 flask-smorest==0.45.0
 Flask-SQLAlchemy==3.1.1
@@ -20,8 +23,10 @@ mypy_extensions==1.1.0
 packaging==25.0
 pathspec==0.12.1
 platformdirs==4.3.7
+pycparser==2.22
 PyMySQL==1.1.1
 SQLAlchemy==2.0.37
 typing_extensions==4.13.2
+tzdata==2025.2
 webargs==8.7.0
 Werkzeug==3.1.3

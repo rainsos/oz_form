@@ -1,9 +1,31 @@
 from flask_smorest import Blueprint
-from flask import request, jsonify
+from flask import request, jsonify, render_template
 from app.services import users, questions, choices, images, answers
+
+######### 이미지수정 import 지울것 ##############
+from app.models import Question
+from config import db
 
 # Blueprint 생성 - 라우트 모음
 routes = Blueprint("routes", __name__)
+
+######### index.html확인용 지워야함 #########
+# @routes.route('/client')
+# def frontend():
+#     return render_template('index.html')  # templates/index.html 호출
+
+######## 이미지 번호 수정용 지워야함 #########  
+@routes.route("/question/<int:question_id>/update_image", methods=["PUT"])
+def update_question_image(question_id):
+    data = request.json
+    new_image_id = data["image_id"]
+    question = Question.query.get(question_id)
+    if question:
+        question.image_id = new_image_id
+        db.session.commit()
+        return jsonify({"message": f"Question {question_id} image updated to {new_image_id}"}), 200
+    return jsonify({"message": "Question not found"}), 404
+
 
 # 1. 기본 연결 확인 API
 @routes.route("/", methods=["GET"])
