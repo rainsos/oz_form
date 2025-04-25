@@ -18,7 +18,7 @@ echo
 
 # 가상환경 활성화
 if [ -f ".venv/bin/activate" ]; then
-    source .venv/bin/activate
+    source ..venv/bin/activate
 else
     echo "Virtual environment not found. Please ensure '.venv' exists."
     exit 1
