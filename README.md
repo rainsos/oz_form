@@ -1,3 +1,13 @@
+<table align="center">
+<td align="center"><img src="https://github.com/user-attachments/assets/1b2c9578-0264-4739-971c-f4b27a1f9985" width="130"/></td>
+<td align="center"><img src="https://github.com/user-attachments/assets/1b2c9578-0264-4739-971c-f4b27a1f9985" width="130"/></td>
+<td align="center"><img src="https://github.com/user-attachments/assets/1b2c9578-0264-4739-971c-f4b27a1f9985" width="130"/></td>
+<td align="center"><img src="https://github.com/user-attachments/assets/1b2c9578-0264-4739-971c-f4b27a1f9985" width="130"/></td>
+<td align="center"><img src="https://github.com/user-attachments/assets/1b2c9578-0264-4739-971c-f4b27a1f9985" width="130"/></td>
+<td align="center"><img src="https://github.com/user-attachments/assets/1b2c9578-0264-4739-971c-f4b27a1f9985" width="130"/></td>
+<td align="center"><img src="https://github.com/user-attachments/assets/1b2c9578-0264-4739-971c-f4b27a1f9985" width="130"/></td>
+</table>
+
 # 📌 Flask 심리테스트 웹 애플리케이션
 
 ## 👥 Team Members
