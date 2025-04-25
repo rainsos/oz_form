@@ -4,6 +4,7 @@ from app import create_app
 
 # Flask 애플리케이션 인스턴스 생성
 application = create_app()
+app = application
 
 # 개발 환경에서 직접 실행할 때 진입점
 if __name__ == "__main__":
