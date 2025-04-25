@@ -13,7 +13,7 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 REPO_DIR=$(dirname "$SCRIPT_DIR")  # scripts 상위 디렉토리를 루트 디렉토리로 간주
 VENV_DIR="$REPO_DIR/.venv"
 
-cd ..
+cd "$REPO_DIR"
 
 # 현재 가상환경 확인 및 활성화
 if [[ -z "$VIRTUAL_ENV" ]]; then
