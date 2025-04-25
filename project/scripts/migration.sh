@@ -38,8 +38,8 @@ export FLASK_APP=run
 export FLASK_ENV=development
 
 # Flask 마이그레이션 작업
-flask db init
-flask db migrate
+# flask db init
+flask db migrate -m "initial'"
 flask db upgrade
 
 echo "==== Migration Completed ===="
