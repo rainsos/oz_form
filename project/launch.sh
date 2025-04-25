@@ -17,8 +17,8 @@ echo "==== Launching Flask app ===="
 echo
 
 # 가상환경 활성화
-if [ -f ".venv/bin/activate" ]; then
-    source ..venv/bin/activate
+if [ -f "/home/ec2-user/oz_form/.venv/bin/activate" ]; then
+    source /home/ec2-user/oz_form/.venv/bin/activate
 else
     echo "Virtual environment not found. Please ensure '.venv' exists."
     exit 1
