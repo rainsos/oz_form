@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>OZ 심리테스트</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 50px;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      img {
+        max-width: 300px;
+        margin: 20px 0;
+      }
+
+      button {
+        margin: 10px;
+        padding: 10px 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="login-section">
+      <h2>로그인 (회원가입)</h2>
+      <input type="text" id="name" placeholder="이름"><br>
+      <input type="email" id="email" placeholder="이메일"><br>
+      <select id="age">
+        <option value="teen">10대</option>
+        <option value="twenty">20대</option>
+        <option value="thirty">30대</option>
+        <option value="fourty">40대</option>
+        <option value="fifty">50대</option>
+      </select><br>
+      <select id="gender">
+        <option value="male">남성</option>
+        <option value="female">여성</option>
+      </select><br><br>
+      <button onclick="signup()">회원가입</button>
+    </div>
+
+    <div id="main-section" class="hidden">
+      <h2>OZ 심리테스트 시작</h2>
+      <img id="main-image" src="" alt="메인 이미지">
+      <br>
+      <button onclick="startTest()">테스트 시작</button>
+    </div>
+
+    <div id="question-section" class="hidden">
+      <h2 id="question-title"></h2>
+      <img id="question-image" src="" alt="질문 이미지">
+      <div id="choices"></div>
+    </div>
+
+    <div id="result-section" class="hidden">
+      <h2>테스트가 완료되었습니다!</h2>
+      <p>참여해주셔서 감사합니다 😊</p>
+    </div>
+
+    <script>
+      const API_BASE = "http://localhost:5000";  // 배포 시 수정
+      let userId = null;
+      let currentQuestion = 1;
+      let totalQuestions = 0;
+      let answers = [];
+
+      function signup() {
+        const data = {
+          name: document.getElementById('name').value,
+          email: document.getElementById('email').value,
+          age: document.getElementById('age').value,
+          gender: document.getElementById('gender').value
+        };
+
+        fetch(`${API_BASE}/signup`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        })
+          .then(res => res.json())
+          .then(res => {
+            if (res.user_id) {
+              userId = res.user_id;
+              document.getElementById('login-section').classList.add('hidden');
+              loadMainImage();
+            } else {
+              alert(res.message);
+            }
+          });
+      }
+
+      function loadMainImage() {
+        fetch(`${API_BASE}/image/main`)
+          .then(res => res.json())
+          .then(data => {
+            document.getElementById('main-image').src = data.image;
+            document.getElementById('main-section').classList.remove('hidden');
+          });
+      }
+
+      function startTest() {
+        fetch(`${API_BASE}/questions/count`)
+          .then(res => res.json())
+          .then(data => {
+            totalQuestions = data.total;
+            document.getElementById('main-section').classList.add('hidden');
+            loadQuestion();
+          });
+      }
+
+      function loadQuestion() {
+        if (currentQuestion > totalQuestions) {
+          submitAnswers();
+          return;
+        }
+
+        fetch(`${API_BASE}/questions/${currentQuestion}`)
+          .then(res => res.json())
+          .then(data => {
+
+            document.getElementById('question-title').innerText = data.title;
+            document.getElementById('question-image').src = data.image.url
+
+            const choicesDiv = document.getElementById('choices');
+            choicesDiv.innerHTML = '';
+            data.choices.forEach(choice => {
+              const btn = document.createElement('button');
+              btn.innerText = choice.content;
+              btn.onclick = () => selectChoice(choice.id);
+              choicesDiv.appendChild(btn);
+            });
+
+            document.getElementById('question-section').classList.remove('hidden');
+          });
+      }
+
+      function selectChoice(choiceId) {
+        answers.push({ user_id: userId, choice_id: choiceId });
+        currentQuestion++;
+        loadQuestion();
+      }
+
+      function submitAnswers() {
+        fetch(`${API_BASE}/submit`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(answers)
+        })
+          .then(res => res.json())
+          .then(data => {
+            document.getElementById('question-section').classList.add('hidden');
+            document.getElementById('result-section').classList.remove('hidden');
+          });
+      }
+    </script>
+  </body>
+
+</html>

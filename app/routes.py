@@ -10,9 +10,9 @@ from config import db
 routes = Blueprint("routes", __name__)
 
 ######### index.html확인용 지워야함 #########
-# @routes.route('/client')
-# def frontend():
-#     return render_template('index.html')  # templates/index.html 호출
+@routes.route('/client')
+def frontend():
+    return render_template('index.html')  # templates/index.html 호출
 
 ######## 이미지 번호 수정용 지워야함 #########  
 @routes.route("/question/<int:question_id>/update_image", methods=["PUT"])
