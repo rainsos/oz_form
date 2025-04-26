@@ -3,11 +3,13 @@ from flask import request, jsonify, render_template, current_app as app
 from app.services import users, questions, choices, images, answers
 from app.models import Question
 from config import db
+from flask_cors import cross_origin
 
 routes = Blueprint("routes", __name__)
 
 # 1. 기본 연결 확인
 @routes.route("/", methods=["GET"])
+@cross_origin(origins="https://oz-flask-form.vercel.app", supports_credentials=True)
 def connect():
     return jsonify({"message": "Success Connect"}), 200
 
