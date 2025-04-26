@@ -7,48 +7,41 @@ from flask_cors import CORS
 
 import app.models
 
-
 migrate = Migrate()
-
 
 def create_app():
     application = Flask(__name__)
 
+    # 기본 설정
     application.config.from_object("config.Config")
     application.secret_key = "oz_form_secret"
 
-    db.init_app(application)
+    # Swagger 관련 설정
+    application.config["API_TITLE"] = "OZ 설문조사 API 문서"
+    application.config["API_VERSION"] = "v1"
+    application.config["OPENAPI_VERSION"] = "3.0.2"
+    application.config["OPENAPI_URL_PREFIX"] = "/"
+    application.config["OPENAPI_SWAGGER_UI_PATH"] = "/docs"
+    application.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
 
+    db.init_app(application)
     migrate.init_app(application, db)
 
-		# 400 에러 발생 시, JSON 형태로 응답 반환
+    # CORS 설정 추가
+    CORS(application, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+
+    # 400 에러 핸들링
     @application.errorhandler(400)
     def handle_bad_request(error):
         response = jsonify({"message": error.description})
         response.status_code = 400
         return response
 
-		# 블루프린트 등록 및 Swagger-UI 연동
-    api = Api(application)   # 🔹 Api 객체 생성
-    api.register_blueprint(routes)  # 🔹 기존 Blueprint 등록
-
-
-    return application
-
-
-########### 사진확인용 지워야함 ############
-def create_app():
-    application = Flask(__name__)
-
-    application.config.from_object("config.Config")
-    application.secret_key = "oz_form_secret"
-
-    db.init_app(application)
-    migrate.init_app(application, db)
-
-    CORS(application)   # 🔥 모든 요청 허용 (개발용)
-
+    # Api 객체 생성 (title 없이)
     api = Api(application)
+
+    # Blueprint 등록
     api.register_blueprint(routes)
 
     return application
+
