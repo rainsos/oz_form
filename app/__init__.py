@@ -27,8 +27,12 @@ def create_app():
     db.init_app(application)
     migrate.init_app(application, db)
 
-    # CORS 설정 추가
-    CORS(application, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+    # CORS 설정 추가 및 출동 제거
+    CORS(
+    application,
+    resources={r"/*": {"origins": "https://oz-flask-form.vercel.app"}},
+    supports_credentials=True
+)
 
     # 400 에러 핸들링
     @application.errorhandler(400)
